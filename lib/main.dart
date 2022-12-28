@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:singleton_logger/counter.dart';
 import 'package:singleton_logger/debug_logger.dart';
 
 void main() {
@@ -34,9 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     final logger = DebugLogger();
+    final counter = LazyCounter();
     setState(() {
       logger.log('counter: $_counter');
       _counter++;
+      print(counter.nextCount());
     });
   }
 

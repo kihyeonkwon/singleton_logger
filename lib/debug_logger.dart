@@ -12,31 +12,26 @@ abstract class BaseLogger {
 
   static const appName = 'singleton_pattern_example';
 
-  void log(message, [Object? error, StackTrace? stackTrace])=> _logger.info(message, error, stackTrace)
+  void log(message, [Object? error, StackTrace? stackTrace]) =>
+      _logger.info(message, error, stackTrace);
 }
 
-
-class DebugLogger extends BaseLogger{
+class DebugLogger extends BaseLogger {
   static DebugLogger? _instance;
 
-
   //내부에서만 사용할 constructor. _뒤에는 뭐가오든 상관없다.
-  DebugLogger._internal(){
-    Logger.root.level=Level.ALL;
+  DebugLogger._internal() {
+    Logger.root.level = Level.ALL;
     Logger.root.onRecord.listen(_recordHandler);
     _logger = Logger(BaseLogger.appName);
     debugPrint('<DebugLogger> creation');
     _instance = this;
   }
 
+  factory DebugLogger() => _instance ?? DebugLogger._internal();
 
-  factory DebugLogger()=> _instance ?? DebugLogger._internal();
-
-
-  void _recordHandler(LogRecord rec){
+  void _recordHandler(LogRecord rec) {
     debugPrint(
-      '${_dateFormatter.format(rec.time)} : ${rec.message}, ${rec.error}');
+        '${_dateFormatter.format(rec.time)} : ${rec.message}, ${rec.error}');
   }
-
-
 }
