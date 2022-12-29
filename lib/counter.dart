@@ -1,6 +1,6 @@
 abstract class BaseCounter {
-  late int count;
-  int nextcount() => count++;
+  int count = 0;
+  int nextCount() => count++;
 }
 
 class LazyCounter extends BaseCounter {
@@ -8,7 +8,6 @@ class LazyCounter extends BaseCounter {
 
   LazyCounter._internal() {
     _instance = this;
-    count = 0;
   }
 
   factory LazyCounter() => _instance ?? LazyCounter._internal();
@@ -19,8 +18,18 @@ class EagerCounter extends BaseCounter {
 
   EagerCounter._internal() {
     _instance = this;
-    count = 0;
   }
 
   factory EagerCounter() => _instance;
+}
+
+class SeedCounter extends BaseCounter {
+  static SeedCounter? _instance;
+
+  SeedCounter._internal(int seed) {
+    _instance = this;
+    count = seed;
+  }
+
+  factory SeedCounter(int seed) => _instance ?? SeedCounter._internal(seed);
 }

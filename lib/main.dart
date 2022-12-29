@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     final logger = DebugLogger();
-    final counter = LazyCounter();
+    final counter = SeedCounter(32);
     setState(() {
       logger.log('counter: $_counter');
       _counter++;
